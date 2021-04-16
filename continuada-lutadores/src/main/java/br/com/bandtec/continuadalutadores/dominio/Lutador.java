@@ -12,7 +12,7 @@ public class Lutador {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Size(min = 3, max = 10)
+    @Size(min = 3, max = 12)
     @NotBlank
     private String nome;
 

@@ -2,6 +2,7 @@ package br.com.bandtec.continuadalutadores.controle;
 
 import br.com.bandtec.continuadalutadores.dominio.Golpe;
 import br.com.bandtec.continuadalutadores.dominio.Lutador;
+import br.com.bandtec.continuadalutadores.dominio.LutadorSimples;
 import br.com.bandtec.continuadalutadores.repositorio.LutadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,10 @@ public class LutadorController {
     }
 
     @PostMapping
-    public ResponseEntity createLutador(@RequestBody @Valid Lutador novoLutador) {
+    public ResponseEntity createLutador(@RequestBody @Valid LutadorSimples lutadorSimples) {
+        Lutador novoLutador = new Lutador();
+        novoLutador.setForcaGolpe(lutadorSimples.getForcaGolpe());
+        novoLutador.setNome(lutadorSimples.getNome());
         repository.save(novoLutador);
         return ResponseEntity.status(201).build();
     }
@@ -67,8 +71,8 @@ public class LutadorController {
             if (golpeado.getVida() <= 0) {
                 golpeado.setVida(0.0);
                 golpeado.setVivo(false);
-                repository.save(golpeado);
             }
+            repository.save(golpeado);
 
             List<Lutador> lista = new ArrayList<>();
             lista.add(atacante);
